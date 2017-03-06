@@ -1,5 +1,5 @@
 {
-  "name": "chartist-plugin-threshold",
+  "name": "vue-chartist-plugin-threshold",
   "description": "Threshold Plugin for Chartist.js",
   "version": "0.0.2",
   "author": "Gion Kunz",
