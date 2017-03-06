@@ -1,18 +1,18 @@
 (function (root, factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
-    define([], function () {
-      return (root.returnExportsGlobal = factory());
+    define(["chartist"], function (Chartist) {
+      return (root.returnExportsGlobal = factory(Chartist));
     });
   } else if (typeof exports === 'object') {
     // Node. Does not work with strict CommonJS, but
     // only CommonJS-like enviroments that support module.exports,
     // like Node.
-    module.exports = factory();
+    module.exports = factory(require("chartist"));
   } else {
-    root['Chartist.plugins.ctThreshold'] = factory();
+    root['Chartist.plugins.ctThreshold'] = factory(Chartist);
   }
-}(this, function () {
+}(this, function (Chartist) {
 
   /**
    * Chartist.js plugin to display a data label on top of the points in a line chart.
@@ -39,8 +39,14 @@
       var defs = data.svg.querySelector('defs') || data.svg.elem('defs');
       // Project the threshold value on the chart Y axis
       var projectedThreshold = data.chartRect.height() - data.axisY.projectValue(options.threshold) + data.chartRect.y2;
+      if (projectedThreshold < 0) {
+        return;
+      }
+      console.log(options.threshold);
+      console.log(projectedThreshold);
       var width = data.svg.width();
       var height = data.svg.height();
+      console.log(height);
 
       // Create mask for upper part above threshold
       defs
@@ -72,7 +78,7 @@
           x: 0,
           y: projectedThreshold,
           width: width,
-          height: height - projectedThreshold,
+          height: height - projectedThreshold > 0 ? height - projectedThreshold : 0,
           fill: 'white'
         });
 
