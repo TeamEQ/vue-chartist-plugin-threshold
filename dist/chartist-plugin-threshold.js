@@ -42,11 +42,8 @@
       if (projectedThreshold < 0) {
         return;
       }
-      console.log(options.threshold);
-      console.log(projectedThreshold);
       var width = data.svg.width();
       var height = data.svg.height();
-      console.log(height);
 
       // Create mask for upper part above threshold
       defs
